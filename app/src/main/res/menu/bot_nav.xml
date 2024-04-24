@@ -4,17 +4,17 @@
 
     <item android:title="Beranda"
         android:id="@+id/home"
-        android:icon="@drawable/logohome"/>
+        android:icon="@drawable/logohomee"/>
 
     <item android:title="Zakat"
         android:id="@+id/zakat"
-        android:icon="@drawable/logozakat"/>
+        android:icon="@drawable/logozakatt"/>
 
     <item android:title="Donasi"
         android:id="@+id/donasi"
-        android:icon="@drawable/logodonasi"/>
+        android:icon="@drawable/logodonasii"/>
 
     <item android:title="Profil"
         android:id="@+id/profil"
-        android:icon="@drawable/logoprofil"/>
+        android:icon="@drawable/logoprofill"/>
 </menu>
