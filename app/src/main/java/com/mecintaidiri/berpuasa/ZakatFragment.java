@@ -52,7 +52,7 @@ public class ZakatFragment extends Fragment {
         zakatAdapter = new ZakatAdapter(zakatArrayList, getContext());
 
         binding.recyclerviewzakat.setAdapter(zakatAdapter);
-        firebaseFirestore.collection("donasi").get()
+        firebaseFirestore.collection("zakat").get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
