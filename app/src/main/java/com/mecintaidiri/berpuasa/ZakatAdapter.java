@@ -1,8 +1,10 @@
 package com.mecintaidiri.berpuasa;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,6 +44,10 @@ public class ZakatAdapter extends RecyclerView.Adapter<ZakatAdapter.ViewHolder>{
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Item hitam = ItemArrayList.get(position);
         holder.judul.setText(hitam.getJudul());
+        holder.relativeLayout.setOnClickListener(v -> {
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(hitam.getLink().toString()));
+            context.startActivity(browserIntent);
+        });
         if (hitam.getGambar() == null) {
             holder.imageView.setImageResource(R.drawable.logoapp);
         } else {
@@ -67,10 +73,7 @@ public class ZakatAdapter extends RecyclerView.Adapter<ZakatAdapter.ViewHolder>{
             super(itemView);
             judul = itemView.findViewById(R.id.namazakat);
             imageView = itemView.findViewById(R.id.imageview);
-            relativeLayout = itemView.findViewById(R.id.recyclerviewzakat);
-            relativeLayout.setOnClickListener(v -> {
-                Toast.makeText(context.getApplicationContext(), "AHa", Toast.LENGTH_SHORT).show();
-            });
+            relativeLayout = itemView.findViewById(R.id.recyclerviewzakat );
         }
     }
 }

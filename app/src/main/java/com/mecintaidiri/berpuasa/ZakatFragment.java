@@ -28,7 +28,7 @@ public class ZakatFragment extends Fragment {
     private ArrayList<Item> zakatArrayList;
     private FragmentZakatBinding binding;
     private ZakatAdapter zakatAdapter;
-
+    private DonasiAdapter donasiAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
