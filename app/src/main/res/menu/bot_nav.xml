@@ -5,12 +5,15 @@
     <item android:title="Beranda"
         android:id="@+id/home"
         android:icon="@drawable/logohome"/>
+
     <item android:title="Zakat"
         android:id="@+id/zakat"
         android:icon="@drawable/logozakat"/>
+
     <item android:title="Donasi"
         android:id="@+id/donasi"
         android:icon="@drawable/logodonasi"/>
+
     <item android:title="Profil"
         android:id="@+id/profil"
         android:icon="@drawable/logoprofil"/>

@@ -8,7 +8,7 @@ import com.mecintaidiri.berpuasa.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ActivityMainBinding binding;
+    ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,6 +16,25 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        //HALO THORIQ
+        binding.bottomNavigationView.setOnItemSelectedListener(item -> {
+
+            switch (item.getItemId()){
+
+                case R.id.home:
+                    break;
+
+                case R.id.zakat:
+                    break;
+
+                case R.id.donasi:
+                    break;
+
+                case R.id.profil:
+                    break;
+            }
+
+            return true;
+        });
+
     }
 }
