@@ -7,13 +7,16 @@ public class Item {
     String judul;
     String gambar;
 
+    String link;
+
     public Item() {
 
     }
 
-    public Item(String judul, String deskripsi, String gambar) {
+    public Item(String judul, String gambar, String link) {
         this.judul = judul;
         this.gambar = gambar;
+        this.link = link;
     }
 
     public String getJudul() {
@@ -30,6 +33,14 @@ public class Item {
 
     public void setGambar(String gambar) {
         this.gambar = gambar;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 }
 

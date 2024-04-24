@@ -1,8 +1,12 @@
 package com.mecintaidiri.berpuasa;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.TextureView;
@@ -47,6 +51,10 @@ public class DonasiAdapter extends RecyclerView.Adapter<DonasiAdapter.ViewHolder
     public void onBindViewHolder(@NonNull DonasiAdapter.ViewHolder holder, int position) {
         Item hitam = ItemArrayList.get(position);
         holder.judul.setText(hitam.getJudul());
+        holder.relativeLayout.setOnClickListener(v -> {
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(hitam.getLink()));
+            context.startActivity(browserIntent);
+        });
         if (hitam.getGambar() == null) {
             holder.imageView.setImageResource(R.drawable.logoapp);
         } else {
@@ -73,9 +81,6 @@ public class DonasiAdapter extends RecyclerView.Adapter<DonasiAdapter.ViewHolder
             judul = itemView.findViewById(R.id.namazakat);
             imageView = itemView.findViewById(R.id.imageview);
             relativeLayout = itemView.findViewById(R.id.relativeLayout);
-            relativeLayout.setOnClickListener(v -> {
-                Toast.makeText(context.getApplicationContext(), "AHa", Toast.LENGTH_SHORT).show();
-            });
         }
     }
 }
