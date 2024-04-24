@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
 import android.view.LayoutInflater;
-import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -16,35 +15,31 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.mecintaidiri.berpuasa.databinding.ItemViewDonasiBinding;
 
-import org.w3c.dom.Text;
-
-import java.lang.annotation.Target;
 import java.util.ArrayList;
 
-public class DonasiAdapter extends RecyclerView.Adapter<DonasiAdapter.ViewHolder>{
+public class ZakatAdapter extends RecyclerView.Adapter<ZakatAdapter.ViewHolder>{
 
     private ArrayList<Item> ItemArrayList;
     private Context context;
     private FirebaseAuth auth;
     private FirebaseFirestore firestore;
     private String itunya;
-    DonasiAdapter(ArrayList<Item> coursesArrayList, Context context){
+    ZakatAdapter(ArrayList<Item> coursesArrayList, Context context){
         this.ItemArrayList = coursesArrayList;
         this.context = context;
     }
+
     @NonNull
     @Override
-    public DonasiAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_view_donasi, parent, false));
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new ZakatAdapter.ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_view_zakat, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull DonasiAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Item hitam = ItemArrayList.get(position);
         holder.judul.setText(hitam.getJudul());
         if (hitam.getGambar() == null) {

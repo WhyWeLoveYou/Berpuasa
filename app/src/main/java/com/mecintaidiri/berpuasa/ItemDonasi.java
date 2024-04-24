@@ -1,2 +1,4 @@
-package com.mecintaidiri.berpuasa;public class ItemDonasi {
+package com.mecintaidiri.berpuasa;
+public class ItemDonasi {
+
 }

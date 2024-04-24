@@ -5,12 +5,14 @@ import javax.xml.transform.sax.SAXResult;
 public class Item {
 
     String judul;
-    String deskripsi;
     String gambar;
+
+    public Item() {
+
+    }
 
     public Item(String judul, String deskripsi, String gambar) {
         this.judul = judul;
-        this.deskripsi = deskripsi;
         this.gambar = gambar;
     }
 
@@ -20,14 +22,6 @@ public class Item {
 
     public void setJudul(String judul) {
         this.judul = judul;
-    }
-
-    public String getDeskripsi() {
-        return deskripsi;
-    }
-
-    public void setDeskripsi(String deskripsi) {
-        this.deskripsi = deskripsi;
     }
 
     public String getGambar() {

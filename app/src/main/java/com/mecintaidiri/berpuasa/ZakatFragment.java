@@ -2,63 +2,70 @@ package com.mecintaidiri.berpuasa;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ZakatFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.mecintaidiri.berpuasa.databinding.FragmentZakatBinding;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class ZakatFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private FirebaseAuth auth;
+    private FirebaseFirestore firebaseFirestore;
+    private ArrayList<Item> zakatArrayList;
+    private FragmentZakatBinding binding;
+    private ZakatAdapter zakatAdapter;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public ZakatFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ZakatFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ZakatFragment newInstance(String param1, String param2) {
-        ZakatFragment fragment = new ZakatFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_zakat, container, false);
+        binding = FragmentZakatBinding.inflate(inflater, container, false);
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        getItem();
+    }
+
+    private void getItem() {
+        auth = FirebaseAuth.getInstance();
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        zakatArrayList = new ArrayList<Item>();
+        binding.recyclerviewzakat.setHasFixedSize(true);
+        binding.recyclerviewzakat.setLayoutManager(new LinearLayoutManager(getContext()));
+        zakatAdapter = new ZakatAdapter(zakatArrayList, getContext());
+
+        binding.recyclerviewzakat.setAdapter(zakatAdapter);
+        firebaseFirestore.collection("donasi").get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        if (!queryDocumentSnapshots.isEmpty()) {
+                            List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+                            for (DocumentSnapshot d : list) {
+                                Item c = d.toObject(Item.class);
+                                zakatArrayList.add(c);
+                            }
+                            zakatAdapter.notifyDataSetChanged();
+                        }
+                    }
+                });
+
     }
 }
