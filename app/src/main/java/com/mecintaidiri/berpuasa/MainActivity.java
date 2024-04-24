@@ -21,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
         replaceFragment(new HomeFragment());
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
-
             switch (item.getItemId()){
 
                 case R.id.home:
