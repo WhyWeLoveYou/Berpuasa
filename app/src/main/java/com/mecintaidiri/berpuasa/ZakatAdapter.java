@@ -67,7 +67,7 @@ public class ZakatAdapter extends RecyclerView.Adapter<ZakatAdapter.ViewHolder>{
             super(itemView);
             judul = itemView.findViewById(R.id.namazakat);
             imageView = itemView.findViewById(R.id.imageview);
-            relativeLayout = itemView.findViewById(R.id.relativeLayout);
+            relativeLayout = itemView.findViewById(R.id.recyclerviewzakat);
             relativeLayout.setOnClickListener(v -> {
                 Toast.makeText(context.getApplicationContext(), "AHa", Toast.LENGTH_SHORT).show();
             });
