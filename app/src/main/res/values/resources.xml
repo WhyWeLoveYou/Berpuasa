@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="apa">
+        <item>Zakat</item>
+        <item>Donasi</item>
+    </string-array>
+</resources>

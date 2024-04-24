@@ -1,5 +1,6 @@
 package com.mecintaidiri.berpuasa;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -57,6 +58,11 @@ public class HomeFragment extends Fragment {
         donasiAdapter = new DonasiAdapter(doasiArrayList, getContext());
 
         binding.recyclerview.setAdapter(donasiAdapter);
+        binding.yesorno.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), MainActivity2.class);
+            startActivity(intent);
+        });
+
         firebaseFirestore.collection("donasi").get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
