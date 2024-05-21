@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -19,6 +20,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.mecintaidiri.berpuasa.databinding.FragmentHomeBinding;
 import com.mecintaidiri.berpuasa.databinding.FragmentZakatBinding;
+import com.mecintaidiri.berpuasa.databinding.FragmentHitungBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +31,7 @@ public class HomeFragment extends Fragment {
     private FirebaseAuth auth;
     private FirebaseFirestore firebaseFirestore;
     private ArrayList<Item> zakatArrayList;
-    private FragmentHomeBinding binding;
+    private FragmentHitungBinding binding;
     private ZakatAdapter zakatAdapter;
     private ArrayList<Item> doasiArrayList;
     private DonasiAdapter donasiAdapter;
@@ -38,71 +40,27 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
+        binding = FragmentHitungBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getItemForZakat();
-        getItem();
+        hitung();
     }
-
-    private void getItem() {
-        auth = FirebaseAuth.getInstance();
-        firebaseFirestore = FirebaseFirestore.getInstance();
-        doasiArrayList = new ArrayList<Item>();
-        binding.recyclerview.setHasFixedSize(true);
-        binding.recyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
-        donasiAdapter = new DonasiAdapter(doasiArrayList, getContext());
-
-        binding.recyclerview.setAdapter(donasiAdapter);
-        binding.yesorno.setOnClickListener(v -> {
-            Intent intent = new Intent(getContext(), MainActivity2.class);
-            startActivity(intent);
+    private void hitung() {
+        binding.button.setOnClickListener(v -> {
+            String input = String.valueOf(binding.Angka.getText());
+            if (input.isEmpty()) {
+                Toast.makeText(getContext(), "Jangan Kosong", Toast.LENGTH_SHORT).show();
+            } else if (input.matches("[a-zA-Z]+")){
+                Toast.makeText(getContext(), "Harus Angka", Toast.LENGTH_SHORT).show();
+            } else {
+                Double angka = Double.valueOf(input);
+                String hasil = String.valueOf(angka * 25/10/100);
+                binding.Hasil.setText(hasil);
+            }
         });
-
-        firebaseFirestore.collection("donasi").get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        if (!queryDocumentSnapshots.isEmpty()) {
-                            List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
-                            for (DocumentSnapshot d : list) {
-                                Item c = d.toObject(Item.class);
-                                doasiArrayList.add(c);
-                            }
-                            donasiAdapter.notifyDataSetChanged();
-                        }
-                    }
-                });
-
-    }
-
-    private void getItemForZakat() {
-        auth = FirebaseAuth.getInstance();
-        firebaseFirestore = FirebaseFirestore.getInstance();
-        zakatArrayList = new ArrayList<Item>();
-        binding.recyclerviewzakat.setHasFixedSize(true);
-        binding.recyclerviewzakat.setLayoutManager(new LinearLayoutManager(getContext()));
-        zakatAdapter = new ZakatAdapter(zakatArrayList, getContext());
-
-        binding.recyclerviewzakat.setAdapter(zakatAdapter);
-        firebaseFirestore.collection("zakat").get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        if (!queryDocumentSnapshots.isEmpty()) {
-                            List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
-                            for (DocumentSnapshot d : list) {
-                                Item c = d.toObject(Item.class);
-                                zakatArrayList.add(c);
-                            }
-                            zakatAdapter.notifyDataSetChanged();
-                        }
-                    }
-                });
-
     }
 }
